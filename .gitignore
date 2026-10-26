@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Environment files (never commit real secrets)
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+client/dist/
+dist/
+build/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Test / coverage
+coverage/
+.nyc_output/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.idea/
+
+# Vite / tooling caches
+.vite/
+.cache/
