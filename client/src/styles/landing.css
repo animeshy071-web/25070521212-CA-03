@@ -1,0 +1,238 @@
+/* Landing page motion (respects the global prefers-reduced-motion rule in base.css) */
+
+.landing {
+  overflow-x: clip;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fadeInSoft {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes ping {
+  75%, 100% { transform: scale(2.6); opacity: 0; }
+}
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes tape {
+  to { transform: translateX(-50%); }
+}
+@keyframes drift1 { to { transform: translate(70px, 46px) scale(1.12); } }
+@keyframes drift2 { to { transform: translate(-80px, 54px) scale(1.08); } }
+@keyframes drift3 { to { transform: translate(46px, -50px) scale(1.15); } }
+@keyframes hShimmer { to { background-position: 200% 0; } }
+@keyframes wordSweep { to { background-position: -200% 0; } }
+
+/* ---------- Staggered hero entrance ---------- */
+.hero-kicker,
+.hero h1,
+.hero-sub,
+.hero-cta {
+  animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.hero-kicker { animation-delay: 0.05s; }
+.hero h1 { animation-delay: 0.16s; }
+.hero-sub { animation-delay: 0.3s; }
+.hero-cta { animation-delay: 0.44s; }
+.hero-chart {
+  animation: rise 1s 0.58s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-cta .btn svg { transition: transform 0.2s ease; }
+.hero-cta .btn:hover svg { transform: translateX(4px); }
+
+/* Kicker live dot */
+.pulse-dot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.7;
+  animation: ping 1.9s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Headline gradient shimmer on the highlighted phrase */
+.hero h1 .hl {
+  color: var(--brand);
+  background-image: linear-gradient(
+    90deg,
+    var(--brand) 0%,
+    #ff8a93 25%,
+    var(--brand) 50%,
+    #ff8a93 75%,
+    var(--brand) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: hShimmer 5s ease-in-out infinite;
+}
+
+/* ---------- Drifting ambient glows ---------- */
+.hero {
+  position: relative;
+  z-index: 0;
+}
+.hero-bg {
+  position: absolute;
+  inset: -40px 0 0 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+}
+.orb-red {
+  width: 420px;
+  height: 420px;
+  background: #e63946;
+  opacity: 0.16;
+  top: 4%;
+  left: 10%;
+  animation: drift1 22s ease-in-out infinite alternate;
+}
+.orb-blue {
+  width: 480px;
+  height: 480px;
+  background: #1769aa;
+  opacity: 0.17;
+  top: 26%;
+  right: 6%;
+  animation: drift2 27s ease-in-out infinite alternate;
+}
+.orb-gold {
+  width: 300px;
+  height: 300px;
+  background: #e7b85c;
+  opacity: 0.1;
+  bottom: -6%;
+  left: 46%;
+  animation: drift3 31s ease-in-out infinite alternate;
+}
+
+/* ---------- Hero chart: line draw + pulsing tip ---------- */
+.hero-chart svg { max-width: 100%; }
+.hero-chart .chart-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 2.6s 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.hero-chart .chart-area {
+  opacity: 0;
+  animation: fadeInSoft 1.4s 1.6s ease forwards;
+}
+.hero-chart .chart-dot,
+.hero-chart .chart-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.hero-chart .chart-dot {
+  opacity: 0;
+  animation: fadeInSoft 0.4s 3s ease forwards;
+}
+.hero-chart .chart-pulse {
+  animation: ping 2.4s 3.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* ---------- Market ticker tape ---------- */
+.ticker {
+  position: relative;
+  overflow: hidden;
+  border-block: 1px solid var(--border);
+  background: rgba(13, 20, 32, 0.65);
+  animation: fadeInSoft 0.8s 0.2s both;
+}
+.ticker::before,
+.ticker::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 70px;
+  z-index: 1;
+  pointer-events: none;
+}
+.ticker::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg), transparent);
+}
+.ticker::after {
+  right: 0;
+  background: linear-gradient(-90deg, var(--bg), transparent);
+}
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: tape 60s linear infinite;
+  will-change: transform;
+}
+.ticker:hover .ticker-track { animation-play-state: paused; }
+.ticker-group { display: flex; }
+.tape-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 9px;
+  padding: 9px 0 9px 36px;
+  font-size: 0.84rem;
+  white-space: nowrap;
+}
+.tape-item:hover .t-sym { color: var(--gold); }
+.t-sym { font-family: var(--mono); font-weight: 700; }
+.t-price { color: var(--text-2); font-family: var(--mono); font-size: 0.82rem; }
+
+/* ---------- Scroll reveals ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* Feature cards: hover lift + per-card icon tinting (grid positions moved
+   behind Reveal wrappers, so nth-child tinting no longer applies) */
+.feature-card {
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(230, 57, 70, 0.5);
+  box-shadow: var(--shadow);
+}
+.feature-card.v1 .fc-icon { background: rgba(230, 57, 70, 0.12); color: var(--brand); }
+.feature-card.v2 .fc-icon { background: rgba(23, 105, 170, 0.15); color: #5ea5d6; }
+.feature-card.v3 .fc-icon { background: rgba(231, 184, 92, 0.12); color: var(--gold); }
+.feature-card.v4 .fc-icon { background: rgba(56, 183, 165, 0.12); color: var(--teal); }
+
+/* ---------- Footer wordmark light sweep ---------- */
+.footer-wordmark {
+  background-image: linear-gradient(
+    90deg,
+    rgba(243, 245, 247, 0.05) 20%,
+    rgba(243, 245, 247, 0.28) 50%,
+    rgba(243, 245, 247, 0.05) 80%
+  );
+  background-size: 200% 100%;
+  animation: wordSweep 8s ease-in-out infinite;
+}
