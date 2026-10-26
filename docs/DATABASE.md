@@ -41,7 +41,7 @@ Cash, holding and transaction writes run sequentially with pre-validation. Stand
 - the portfolio snapshot shown to users is always **recomputed** from holdings + cash, so display never drifts from stored state,
 - the transaction record is written last, so it reflects committed changes.
 
-**Upgrade path:** on a replica set (e.g. Atlas), wrap the three writes in `mongoose.startSession()/withTransaction` inside `tradeController` — the code is structured so this is a contained change. This limitation is also listed in README §21.
+**Upgrade path:** on a replica set (e.g. Atlas), wrap the three writes in `mongoose.startSession()/withTransaction` inside `tradeController` — the code is structured so this is a contained change. This limitation is also listed in [ROADMAP.md §21](ROADMAP.md).
 
 ## Seeding
 

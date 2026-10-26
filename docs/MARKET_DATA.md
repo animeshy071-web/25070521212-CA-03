@@ -24,7 +24,7 @@ getCompanyProfile(symbol)
 getOverview(symbols)                   // composite, breadth, gainers, losers, mostActive
 ```
 
-To add a real provider: create `providers/<name>.js` implementing the same four functions (with API key from env vars that stay server-side), register it in the factory, and set `MARKET_DATA_PROVIDER=<name>`. No UI changes are required — but before claiming any data is "live", verify the provider's actual latency and terms (see README §15).
+To add a real provider: create `providers/<name>.js` implementing the same four functions (with API key from env vars that stay server-side), register it in the factory, and set `MARKET_DATA_PROVIDER=<name>`. No UI changes are required — but before claiming any data is "live", verify the provider's actual latency and terms (see [ROADMAP.md §15](ROADMAP.md)).
 
 ## Selection checklist for a real provider
 

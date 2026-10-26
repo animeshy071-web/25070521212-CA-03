@@ -32,7 +32,7 @@ Areas covered and verified:
 
 ## Known gaps (honest list)
 
-- No automated unit-test suite yet (planned: Node test runner/Vitest + Supertest for the trade engine edge cases, React Testing Library for UI states — README Phase 13).
+- No automated unit-test suite yet (planned: Node test runner/Vitest + Supertest for the trade engine edge cases, React Testing Library for UI states — ROADMAP.md Phase 13).
 - Smoke suite covers happy paths plus the main rejection cases; it does not yet cover concurrent submissions or pagination edges.
 - No CI pipeline yet.
 - Persistence across restarts is verified only with a real MongoDB instance (local or Atlas); the `dev:memory` helper is intentionally non-persistent.
